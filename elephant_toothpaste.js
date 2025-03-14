@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Sandboxels Elephant Toothpaste Mod
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Aggiunge la reazione dell'Elephant Toothpaste a Sandboxels
 // @author       Il Tuo Nome
 // @match        *://sandboxels.js.org/*
@@ -11,7 +11,7 @@
 (function() {
     'use strict';
 
-    // 1. Definizione del Perossido di Idrogeno (H₂O₂)
+    // 1️⃣ Perossido di Idrogeno (H₂O₂)
     elements.hydrogen_peroxide = {
         color: "#a3d9ff",
         behavior: behaviors.LIQUID,
@@ -21,23 +21,30 @@
         },
         tempHigh: 100,
         stateHigh: "steam",
-        category: "liquids"
+        category: "liquids",
+        state: "liquid",
+        hidden: false
     };
 
-    // 2. Definizione dell'Ioduro di Potassio e del Lievito (Catalizzatori)
+    // 2️⃣ Ioduro di Potassio (Catalizzatore)
     elements.potassium_iodide = {
         color: "#d1cfd0",
         behavior: behaviors.POWDER,
-        category: "solids"
+        category: "powders",
+        state: "solid",
+        hidden: false
     };
 
+    // 3️⃣ Lievito (Catalizzatore alternativo)
     elements.yeast = {
         color: "#c1a775",
         behavior: behaviors.POWDER,
-        category: "solids"
+        category: "powders",
+        state: "solid",
+        hidden: false
     };
 
-    // 3. Creazione della Schiuma (Foam)
+    // 4️⃣ Schiuma dell'Elephant Toothpaste
     elements.foam = {
         color: "#ffffff",
         behavior: [
@@ -47,19 +54,23 @@
         ],
         tempHigh: 50,
         stateHigh: "steam",
-        category: "gases"
+        category: "gases",
+        state: "gas",
+        hidden: false
     };
 
-    // 4. Creazione del Perossido di Idrogeno da Acqua + Ossigeno
-    if (!elements.water.reactions) elements.water.reactions = {}; // Se non esiste, crea l'oggetto reazioni
-    elements.water.reactions["oxygen"] = { elem1: "hydrogen_peroxide", chance: 0.3, temp1: -10 };
-
-    // 5. Opzionale: Aggiungere il catalizzatore MnO₂ per aumentare la probabilità di reazione
+    // 5️⃣ Biossido di Manganese (MnO₂) - Aumenta la creazione di H₂O₂
     elements.manganese_dioxide = {
         color: "#3d3d3d",
         behavior: behaviors.POWDER,
-        category: "solids"
+        category: "powders",
+        state: "solid",
+        hidden: false
     };
+
+    // 6️⃣ Reazione Acqua + Ossigeno → Perossido di Idrogeno
+    if (!elements.water.reactions) elements.water.reactions = {};
+    elements.water.reactions["oxygen"] = { elem1: "hydrogen_peroxide", chance: 0.3, temp1: -10 };
     elements.water.reactions["manganese_dioxide"] = { elem1: "hydrogen_peroxide", chance: 0.8 };
 
 })();
